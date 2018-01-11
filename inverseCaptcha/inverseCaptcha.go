@@ -1,20 +1,18 @@
 package inverseCaptcha
 
-import "strconv"
+import (
+	"log"
+	"strconv"
+	"time"
+)
 
 // InverseCaptcha calculates the inverse captcha for a string.
 func InverseCaptcha(s string) int {
+	s = s + string(s[0])
+	start := time.Now()
 	total := 0
-	for i := 0; i < len(s); i++ {
-		if i+1 == len(s) {
-			if s[i] == s[0] {
-				val, err := strconv.Atoi(string(s[i]))
-				if err != nil {
-					panic(err)
-				}
-				total += val
-			}
-		} else if s[i] == s[i+1] {
+	for i := 0; i < len(s)-1; i++ {
+		if s[i] == s[i+1] {
 			val, err := strconv.Atoi(string(s[i]))
 			if err != nil {
 				panic(err)
@@ -22,19 +20,18 @@ func InverseCaptcha(s string) int {
 			total += val
 		}
 	}
+	log.Printf("Took %f seconds", time.Now().Sub(start).Seconds())
 	return total
 }
 
 // InverseCaptchaVersion2 also considers the halfway round character
 func InverseCaptchaVersion2(s string) int {
 	total := 0
+	newString := s + s
 	half := len(s) / 2
 	for i := 0; i < len(s); i++ {
 		wanted := i + half
-		if i+half >= len(s) {
-			wanted -= len(s)
-		}
-		if s[i] == s[wanted] {
+		if s[i] == newString[wanted] {
 			val, err := strconv.Atoi(string(s[i]))
 			if err != nil {
 				panic(err)
