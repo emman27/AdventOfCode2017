@@ -2,8 +2,6 @@ package spiralMemory
 
 import (
 	"math"
-
-	"github.com/sirupsen/logrus"
 )
 
 // PartA calculates the Manhatten Distance from the port to center
@@ -58,7 +56,6 @@ func PartB(min int) int {
 	for i := 2; curr <= min; i++ {
 		x, y := position(i)
 		curr = storage.Calculate(x, y)
-		logrus.Info(x, y, curr)
 		storage.Set(x, y, curr)
 	}
 	return curr
