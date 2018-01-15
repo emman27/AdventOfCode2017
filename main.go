@@ -8,4 +8,5 @@ import (
 
 func main() {
 	log.Println(spiralMemory.PartA(325489))
+	log.Println(spiralMemory.PartB(325489))
 }
