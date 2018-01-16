@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/emman27/aoc2017/circus"
 	"github.com/emman27/aoc2017/corruptionChecksum"
 	"github.com/emman27/aoc2017/inverseCaptcha"
 	"github.com/emman27/aoc2017/memoryReallocation"
@@ -40,4 +41,5 @@ func main() {
 	log.Println(trampolines.PartB(trampolines.TestData))
 	log.Println(memoryReallocation.PartA([]int{4, 1, 15, 12, 0, 9, 9, 5, 5, 8, 7, 3, 14, 5, 12, 3}))
 	log.Println(memoryReallocation.PartB([]int{4, 1, 15, 12, 0, 9, 9, 5, 5, 8, 7, 3, 14, 5, 12, 3}))
+	log.Println(circus.PartA("./circus/puzzle_input.txt"))
 }
