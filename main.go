@@ -5,6 +5,7 @@ import (
 
 	"github.com/emman27/aoc2017/corruptionChecksum"
 	"github.com/emman27/aoc2017/inverseCaptcha"
+	"github.com/emman27/aoc2017/memoryReallocation"
 	"github.com/emman27/aoc2017/passphrase"
 	"github.com/emman27/aoc2017/spiralMemory"
 	"github.com/emman27/aoc2017/trampolines"
@@ -37,4 +38,5 @@ func main() {
 	log.Println(passphrase.PartB(passphrase.ActualData))
 	// log.Println(trampolines.PartA(trampolines.TestData))
 	log.Println(trampolines.PartB(trampolines.TestData))
+	log.Println(memoryReallocation.PartA([]int{4, 1, 15, 12, 0, 9, 9, 5, 5, 8, 7, 3, 14, 5, 12, 3}))
 }
