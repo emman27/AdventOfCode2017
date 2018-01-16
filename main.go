@@ -7,6 +7,7 @@ import (
 	"github.com/emman27/aoc2017/inverseCaptcha"
 	"github.com/emman27/aoc2017/passphrase"
 	"github.com/emman27/aoc2017/spiralMemory"
+	"github.com/emman27/aoc2017/trampolines"
 )
 
 func main() {
@@ -34,4 +35,6 @@ func main() {
 	log.Println(spiralMemory.PartB(325489))
 	log.Println(passphrase.PartA(passphrase.ActualData))
 	log.Println(passphrase.PartB(passphrase.ActualData))
+	// log.Println(trampolines.PartA(trampolines.TestData))
+	log.Println(trampolines.PartB(trampolines.TestData))
 }
