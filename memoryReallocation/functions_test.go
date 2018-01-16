@@ -38,3 +38,18 @@ func TestPartA(t *testing.T) {
 		}
 	}
 }
+
+func TestPartB(t *testing.T) {
+	type testCase struct {
+		Input  []int
+		Output int
+	}
+	cases := []testCase{
+		testCase{Input: []int{0, 2, 7, 0}, Output: 4},
+	}
+	for _, c := range cases {
+		if res := PartB(c.Input); res != c.Output {
+			t.Fatalf("Failed. Got %d, Want %d", res, c.Output)
+		}
+	}
+}

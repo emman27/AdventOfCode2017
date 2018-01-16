@@ -17,6 +17,21 @@ func PartA(blocks []int) int {
 	return -1
 }
 
+// PartB calculates the size of the loop
+func PartB(blocks []int) int {
+	s := set.New()
+	m := make(map[string]int)
+	for i := 0; true; i++ {
+		if s.Has(str(blocks)) {
+			return i - m[str(blocks)]
+		}
+		s.Add(str(blocks))
+		m[str(blocks)] = i
+		blocks = Reallocate(blocks)
+	}
+	return -1
+}
+
 // Reallocate moves the largest stack into the smaller stacks
 func Reallocate(blocks []int) []int {
 	idx, maximum := max(blocks)

@@ -39,4 +39,5 @@ func main() {
 	// log.Println(trampolines.PartA(trampolines.TestData))
 	log.Println(trampolines.PartB(trampolines.TestData))
 	log.Println(memoryReallocation.PartA([]int{4, 1, 15, 12, 0, 9, 9, 5, 5, 8, 7, 3, 14, 5, 12, 3}))
+	log.Println(memoryReallocation.PartB([]int{4, 1, 15, 12, 0, 9, 9, 5, 5, 8, 7, 3, 14, 5, 12, 3}))
 }
