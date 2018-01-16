@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
+	"log"
 
-	"github.com/emman27/aoc2018/corruptionChecksum"
-	"github.com/emman27/aoc2018/inverseCaptcha"
+	"github.com/emman27/aoc2017/corruptionChecksum"
+	"github.com/emman27/aoc2017/inverseCaptcha"
+	"github.com/emman27/aoc2017/passphrase"
+	"github.com/emman27/aoc2017/spiralMemory"
 )
 
 func main() {
@@ -28,4 +31,7 @@ func main() {
 		[]int{851, 132, 939, 1563, 539, 1351, 1147, 117, 1484, 100, 123, 490, 152, 798, 1476, 543},
 		[]int{1158, 2832, 697, 113, 121, 397, 1508, 118, 2181, 2122, 809, 2917, 134, 2824, 3154, 2791},
 	}, corruptionChecksum.EvenDivisResults))
+	log.Println(spiralMemory.PartA(325489))
+	log.Println(spiralMemory.PartB(325489))
+	log.Println(passphrase.PartA(passphrase.ActualData))
 }
