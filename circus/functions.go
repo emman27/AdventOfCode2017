@@ -2,6 +2,7 @@ package circus
 
 import (
 	"bufio"
+	"errors"
 	"os"
 	"strconv"
 	"strings"
@@ -103,26 +104,54 @@ func PartB(filename string) int {
 			rootNode = p
 		}
 	}
-	return rootNode.findUnbalancedNode(0)
+	unbalanced := rootNode.findUnbalancedNode()
+	expected, _ := unbalanced.expectedWeight()
+	return expected - unbalanced.childrenWeight()
 }
 
-func (p *Program) findUnbalancedNode(expectedWeight int) int {
+func (p *Program) findUnbalancedNode() *Program {
+	if len(p.Children) == 0 {
+		return nil
+	}
 	weights := map[int]int{} // Hash of weight to count
 	indexes := map[int]int{} // Hash of weight to index in children
 	for _, tower := range p.Children {
 		weights[tower.TotalWeight()]++
 	}
-	var correct int
 	var oddNode *Program
 	for weight, count := range weights {
 		if count == 1 && len(weights) != 1 {
 			oddNode = p.Children[indexes[weight]]
-		} else {
-			correct = weight
+		}
+	}
+	for _, node := range p.Children {
+		if res := node.findUnbalancedNode(); res != nil {
+			return res
 		}
 	}
 	if oddNode != nil {
-		return oddNode.findUnbalancedNode(correct)
+		return oddNode
 	}
-	return expectedWeight - correct*len(p.Children)
+	return nil
+}
+
+func (p *Program) childrenWeight() int {
+	total := 0
+	for _, child := range p.Children {
+		total += child.Weight
+	}
+	return total
+}
+
+func (p *Program) expectedWeight() (int, error) {
+	weights := map[int]int{} // count of weights to count
+	for _, child := range p.Parent.Children {
+		weights[child.TotalWeight()]++
+	}
+	for weight, count := range weights {
+		if count != 1 {
+			return weight, nil
+		}
+	}
+	return 0, errors.New("Cannot find expected parent")
 }

@@ -27,28 +27,38 @@ func TestPartB(t *testing.T) {
 	}
 }
 
-func TestUnbalanced(t *testing.T) {
-	root := Program{Weight: 1, Children: []*Program{
-		&Program{Weight: 2},
-		&Program{Weight: 3},
-		&Program{Weight: 2},
-	}}
-	if res := root.findUnbalancedNode(0); res != 2 {
-		t.Fatalf("Failed. Wanted 2, Got %d", res)
+func TestFindUnbalanced(t *testing.T) {
+	if res := (&Program{Weight: 1}).findUnbalancedNode(); res != nil {
+		t.Fatalf("Failed test case")
 	}
-}
+	if res := (&Program{Weight: 1, Children: []*Program{
+		&Program{Weight: 2},
+		&Program{Weight: 2},
+		&Program{Weight: 2},
+	}}).findUnbalancedNode(); res != nil {
+		t.Fatalf("Failed test case #2")
+	}
+	easyAnswer := &Program{Weight: 1}
+	if res := (&Program{Weight: 1, Children: []*Program{
+		easyAnswer,
+		&Program{Weight: 2},
+		&Program{Weight: 2},
+	}}).findUnbalancedNode(); res != easyAnswer {
+		t.Fatalf("Failed test case #3")
+	}
 
-func TestUnbalancedDeep(t *testing.T) {
-	root := Program{Weight: 1, Children: []*Program{
-		&Program{Weight: 0, Children: []*Program{
+	// Always find the deepest nested problem
+	answer := &Program{Weight: 1}
+	hardTestCase := &Program{Weight: 1, Children: []*Program{
+		&Program{Weight: 4, Children: []*Program{
+			answer,
 			&Program{Weight: 2},
 			&Program{Weight: 2},
-			&Program{Weight: 1},
 		}},
-		&Program{Weight: 6},
-		&Program{Weight: 6},
+		&Program{Weight: 10},
+		&Program{Weight: 10},
 	}}
-	if res := root.findUnbalancedNode(0); res != 2 {
-		t.Fatalf("Failed. Wanted 2, Got %d", res)
+	if res := hardTestCase.findUnbalancedNode(); res != answer {
+		t.Fatalf("Failed test case #4")
 	}
 }
