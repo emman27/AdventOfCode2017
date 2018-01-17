@@ -9,9 +9,9 @@ import (
 
 // Program is a program in the system
 type Program struct {
-	Name    string
-	Weight  int
-	Parents []*Program
+	Name   string
+	Weight int
+	Parent *Program
 }
 
 // ReadData reads data from a txt file and returns an array of Program
@@ -58,7 +58,7 @@ func ReadData(filename string) []Program {
 
 // AddParent adds a parent to the program
 func (p *Program) AddParent(parent *Program) *Program {
-	p.Parents = append(p.Parents, parent)
+	p.Parent = parent
 	return p
 }
 
@@ -70,7 +70,7 @@ func (p *Program) String() string {
 func PartA(filename string) string {
 	programs := ReadData(filename)
 	for _, prog := range programs {
-		if len(prog.Parents) == 0 {
+		if prog.Parent == nil {
 			return prog.Name
 		}
 	}
