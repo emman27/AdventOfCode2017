@@ -22,7 +22,33 @@ func TestTotalWeight(t *testing.T) {
 }
 
 func TestPartB(t *testing.T) {
-	if res := PartB("./data_test.txt"); res != 243 {
-		t.Fatalf("Failed Part B, wanted: %d, got %d", 243, res)
+	if res := PartB("./data_test.txt"); res != 60 {
+		t.Fatalf("Failed Part B, wanted: %d, got %d", 60, res)
+	}
+}
+
+func TestUnbalanced(t *testing.T) {
+	root := Program{Weight: 1, Children: []*Program{
+		&Program{Weight: 2},
+		&Program{Weight: 3},
+		&Program{Weight: 2},
+	}}
+	if res := root.findUnbalancedNode(0); res != 2 {
+		t.Fatalf("Failed. Wanted 2, Got %d", res)
+	}
+}
+
+func TestUnbalancedDeep(t *testing.T) {
+	root := Program{Weight: 1, Children: []*Program{
+		&Program{Weight: 0, Children: []*Program{
+			&Program{Weight: 2},
+			&Program{Weight: 2},
+			&Program{Weight: 1},
+		}},
+		&Program{Weight: 6},
+		&Program{Weight: 6},
+	}}
+	if res := root.findUnbalancedNode(0); res != 2 {
+		t.Fatalf("Failed. Wanted 2, Got %d", res)
 	}
 }

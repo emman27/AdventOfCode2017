@@ -5,8 +5,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-
-	"github.com/sirupsen/logrus"
 )
 
 // Program is a program in the system
@@ -105,23 +103,26 @@ func PartB(filename string) int {
 			rootNode = p
 		}
 	}
-	if balanced, val := rootNode.IsBalanced(); !balanced {
-		return val
-	}
-	return 0
+	return rootNode.findUnbalancedNode(0)
 }
 
-// IsBalanced checks if a tree is balanced
-func (p *Program) IsBalanced() (bool, int) {
-	weights := make(map[int]int)
-	for _, c := range p.Children {
-		weights[c.TotalWeight()] = weights[c.TotalWeight()] + 1
+func (p *Program) findUnbalancedNode(expectedWeight int) int {
+	weights := map[int]int{} // Hash of weight to count
+	indexes := map[int]int{} // Hash of weight to index in children
+	for _, tower := range p.Children {
+		weights[tower.TotalWeight()]++
 	}
-	logrus.Info(weights)
-	for key, value := range weights {
-		if value != 1 && len(weights) != 1 {
-			return false, key
+	var correct int
+	var oddNode *Program
+	for weight, count := range weights {
+		if count == 1 && len(weights) != 1 {
+			oddNode = p.Children[indexes[weight]]
+		} else {
+			correct = weight
 		}
 	}
-	return len(weights) == 1, 0
+	if oddNode != nil {
+		return oddNode.findUnbalancedNode(correct)
+	}
+	return expectedWeight - correct*len(p.Children)
 }
