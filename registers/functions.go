@@ -72,6 +72,15 @@ func trigger(r *registry, target, action string, val int) {
 	}
 }
 
+func (reg *registry) getLargest() float64 {
+	r := *reg
+	max := math.Inf(-1)
+	for _, value := range r {
+		max = math.Max(max, float64(value))
+	}
+	return max
+}
+
 // PartA finds the largest value in any register after all commands are done
 func PartA(filename string) int {
 	reg := registry{}
@@ -79,9 +88,19 @@ func PartA(filename string) int {
 	for _, cmd := range cmds {
 		reg.parseInput(cmd)
 	}
+	return int(reg.getLargest())
+}
+
+// PartB finds the largest value held at any point
+func PartB(filename string) int {
+	reg := registry{}
+	cmds := readData(filename)
 	max := math.Inf(-1)
-	for _, value := range reg {
-		max = math.Max(max, float64(value))
+	for _, cmd := range cmds {
+		reg.parseInput(cmd)
+		if curr := reg.getLargest(); curr > max {
+			max = curr
+		}
 	}
 	return int(max)
 }

@@ -46,4 +46,5 @@ func main() {
 	log.Println(circus.PartA("./circus/puzzle_input.txt"))
 	log.Println(circus.PartB("./circus/puzzle_input.txt"))
 	log.Println(registers.PartA("./registers/puzzle_input.txt"))
+	log.Println(registers.PartB("./registers/puzzle_input.txt"))
 }
