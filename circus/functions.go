@@ -6,6 +6,8 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/sirupsen/logrus"
 )
 
 // Program is a program in the system
@@ -50,7 +52,6 @@ func ReadData(filename string) []*Program {
 			for _, prog := range programs {
 				if prog.Name == childName {
 					prog.AddParent(programs[idx])
-					programs[idx].AddChild(prog)
 				}
 			}
 		}
@@ -61,22 +62,13 @@ func ReadData(filename string) []*Program {
 // AddParent adds a parent to the program
 func (p *Program) AddParent(parent *Program) *Program {
 	p.Parent = parent
-	return p
-}
-
-// AddChild adds a child program
-func (p *Program) AddChild(child *Program) *Program {
-	p.Children = append(p.Children, child)
+	parent.Children = append(parent.Children, p)
 	return p
 }
 
 // TotalWeight gives the weight of a program and its' stack
 func (p *Program) TotalWeight() int {
-	total := 0
-	for _, c := range p.Children {
-		total += c.TotalWeight()
-	}
-	return p.Weight + total
+	return p.Weight + p.childrenWeight()
 }
 
 func (p *Program) String() string {
@@ -97,63 +89,53 @@ func PartA(filename string) string {
 // PartB finds the oddly weighted thingy
 func PartB(filename string) int {
 	programs := ReadData(filename)
-	rootNodeName := PartA(filename)
-	var rootNode *Program
+	leaves := []*Program{}
+	nextTier := []*Program{}
 	for _, p := range programs {
-		if rootNodeName == p.Name {
-			rootNode = p
+		if len(p.Children) == 0 {
+			leaves = append(leaves, p)
 		}
 	}
-	unbalanced := rootNode.findUnbalancedNode()
-	expected, _ := unbalanced.expectedWeight()
-	return expected - unbalanced.childrenWeight()
-}
-
-func (p *Program) findUnbalancedNode() *Program {
-	if len(p.Children) == 0 {
-		return nil
-	}
-	weights := map[int]int{} // Hash of weight to count
-	indexes := map[int]int{} // Hash of weight to index in children
-	for idx, tower := range p.Children {
-		weight := tower.TotalWeight()
-		weights[weight]++
-		indexes[weight] = idx
-	}
-	var oddNode *Program
-	for weight, count := range weights {
-		if count == 1 && len(weights) != 1 {
-			oddNode = p.Children[indexes[weight]]
+	for i := 1; len(leaves) != 0; i++ {
+		logrus.Warnf("Starting tier %d", i)
+		for _, l := range leaves {
+			if l.Parent != nil {
+				nextTier = append(nextTier, l.Parent)
+			}
+			w, err := l.expectedWeight()
+			if err != nil {
+				logrus.Errorf("Error! %v", err)
+			} else if w != l.TotalWeight() {
+				return w - l.childrenWeight()
+			}
 		}
+		leaves = nextTier
+		nextTier = []*Program{}
 	}
-	for _, node := range p.Children {
-		if res := node.findUnbalancedNode(); res != nil {
-			return res
-		}
-	}
-	if oddNode != nil && len(p.Children) >= 3 {
-		return oddNode
-	}
-	return nil
+	return 0
 }
 
 func (p *Program) childrenWeight() int {
 	total := 0
 	for _, child := range p.Children {
-		total += child.Weight
+		total += child.TotalWeight()
 	}
 	return total
 }
 
 func (p *Program) expectedWeight() (int, error) {
 	weights := map[int]int{} // count of weights to count
+	if p.Parent == nil {
+		return 0, errors.New("There's no parent for this node")
+	}
 	for _, child := range p.Parent.Children {
 		weights[child.TotalWeight()]++
 	}
+	logrus.Info(weights)
 	for weight, count := range weights {
 		if count != 1 {
 			return weight, nil
 		}
 	}
-	return 0, errors.New("Cannot find expected parent")
+	return p.TotalWeight(), nil
 }
