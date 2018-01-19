@@ -115,8 +115,10 @@ func (p *Program) findUnbalancedNode() *Program {
 	}
 	weights := map[int]int{} // Hash of weight to count
 	indexes := map[int]int{} // Hash of weight to index in children
-	for _, tower := range p.Children {
-		weights[tower.TotalWeight()]++
+	for idx, tower := range p.Children {
+		weight := tower.TotalWeight()
+		weights[weight]++
+		indexes[weight] = idx
 	}
 	var oddNode *Program
 	for weight, count := range weights {
@@ -129,7 +131,7 @@ func (p *Program) findUnbalancedNode() *Program {
 			return res
 		}
 	}
-	if oddNode != nil {
+	if oddNode != nil && len(p.Children) >= 3 {
 		return oddNode
 	}
 	return nil
