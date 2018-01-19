@@ -8,6 +8,7 @@ import (
 	"github.com/emman27/aoc2017/inverseCaptcha"
 	"github.com/emman27/aoc2017/memoryReallocation"
 	"github.com/emman27/aoc2017/passphrase"
+	"github.com/emman27/aoc2017/registers"
 	"github.com/emman27/aoc2017/spiralMemory"
 	"github.com/emman27/aoc2017/trampolines"
 )
@@ -44,4 +45,5 @@ func main() {
 	log.Println(memoryReallocation.PartB([]int{4, 1, 15, 12, 0, 9, 9, 5, 5, 8, 7, 3, 14, 5, 12, 3}))
 	log.Println(circus.PartA("./circus/puzzle_input.txt"))
 	log.Println(circus.PartB("./circus/puzzle_input.txt"))
+	log.Println(registers.PartA("./registers/puzzle_input.txt"))
 }

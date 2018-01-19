@@ -97,7 +97,6 @@ func PartB(filename string) int {
 		}
 	}
 	for i := 1; len(leaves) != 0; i++ {
-		logrus.Warnf("Starting tier %d", i)
 		for _, l := range leaves {
 			if l.Parent != nil {
 				nextTier = append(nextTier, l.Parent)
@@ -131,7 +130,6 @@ func (p *Program) expectedWeight() (int, error) {
 	for _, child := range p.Parent.Children {
 		weights[child.TotalWeight()]++
 	}
-	logrus.Info(weights)
 	for weight, count := range weights {
 		if count != 1 {
 			return weight, nil
