@@ -1,33 +1,6 @@
 // Package knothash solves Day 10 of AOC 2017
 package knothash
 
-import "github.com/sirupsen/logrus"
-
-type store struct {
-	Items []int
-	Curr  int
-}
-
-func (s *store) stepForward(steps int) {
-	s.Curr = (s.Curr + steps) % len(s.Items)
-}
-
-func (s *store) reverse(l int) {
-	var max int
-	var right int
-	if m := s.Curr + l; m >= len(s.Items) {
-		max = m % len(s.Items)
-		right = len(s.Items)
-	} else {
-		right = s.Curr + l
-	}
-	correctLength := len(s.Items)
-	reversed := reverseHelper(append(s.Items[s.Curr:right], s.Items[:max]...))
-	s.Items = append(append(s.Items[:s.Curr], reversed...), s.Items[right:]...)
-	s.Items = append(reversed[len(reversed)-max:], s.Items...)[:correctLength]
-	logrus.Info(s.Items)
-}
-
 func stepForward(s []int, steps int) []int {
 	steps = steps % len(s)
 	return append(s[steps:], s[:steps]...)
