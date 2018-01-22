@@ -75,17 +75,17 @@ func TestPartA(t *testing.T) {
 func Test_move(t *testing.T) {
 	type args struct {
 		cmds []int
-		s    store
+		s    []int
 	}
 	tests := []struct {
 		name string
 		args args
 		want int
 	}{
-		{args: args{cmds: []int{3}, s: store{Items: []int{0, 1, 2, 3, 4}}}, want: 2},
-		{args: args{cmds: []int{3, 4}, s: store{Items: []int{0, 1, 2, 3, 4}}}, want: 12},
-		{args: args{cmds: []int{3, 4, 1}, s: store{Items: []int{0, 1, 2, 3, 4}}}, want: 12},
-		{args: args{cmds: []int{3, 4, 1, 5}, s: store{Items: []int{0, 1, 2, 3, 4}}}, want: 12},
+		{args: args{cmds: []int{3}, s: []int{0, 1, 2, 3, 4}}, want: 2},
+		{args: args{cmds: []int{3, 4}, s: []int{0, 1, 2, 3, 4}}, want: 12},
+		{args: args{cmds: []int{3, 4, 1}, s: []int{0, 1, 2, 3, 4}}, want: 12},
+		{args: args{cmds: []int{3, 4, 1, 5}, s: []int{0, 1, 2, 3, 4}}, want: 12},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

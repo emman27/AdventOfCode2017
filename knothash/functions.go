@@ -50,14 +50,17 @@ func PartA(cmds []int) int {
 	for i := 0; i <= 255; i++ {
 		s = append(s, i)
 	}
-	store := store{Items: s}
-	return move(cmds, store)
+	return move(cmds, s)
 }
 
-func move(cmds []int, s store) int {
+func move(cmds, s []int) int {
+	steps := 0
 	for idx, cmd := range cmds {
-		s.reverse(cmd)
-		s.stepForward(idx + cmd)
+		s = reverse(s, cmd)
+		s = stepForward(s, idx+cmd)
+		steps += idx + cmd
 	}
-	return s.Items[0] * s.Items[1]
+	// Reset to front
+	s = stepForward(s, len(s)-steps%len(s))
+	return s[0] * s[1]
 }
