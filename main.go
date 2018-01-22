@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"log"
 
 	"github.com/emman27/aoc2017/circus"
@@ -10,6 +11,7 @@ import (
 	"github.com/emman27/aoc2017/passphrase"
 	"github.com/emman27/aoc2017/registers"
 	"github.com/emman27/aoc2017/spiralMemory"
+	"github.com/emman27/aoc2017/stream"
 	"github.com/emman27/aoc2017/trampolines"
 )
 
@@ -47,4 +49,11 @@ func main() {
 	log.Println(circus.PartB("./circus/puzzle_input.txt"))
 	log.Println(registers.PartA("./registers/puzzle_input.txt"))
 	log.Println(registers.PartB("./registers/puzzle_input.txt"))
+
+	s, err := ioutil.ReadFile("./stream/puzzle_input.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println(stream.PartA(string(s)))
+	log.Println(stream.PartB(string(s)))
 }
