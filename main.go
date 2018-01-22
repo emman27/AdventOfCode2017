@@ -6,6 +6,7 @@ import (
 
 	"github.com/emman27/aoc2017/circus"
 	"github.com/emman27/aoc2017/corruptionChecksum"
+	"github.com/emman27/aoc2017/hex"
 	"github.com/emman27/aoc2017/inverseCaptcha"
 	"github.com/emman27/aoc2017/knothash"
 	"github.com/emman27/aoc2017/memoryReallocation"
@@ -59,4 +60,10 @@ func main() {
 	log.Println(stream.PartB(string(s)))
 	log.Println(knothash.PartA([]int{46, 41, 212, 83, 1, 255, 157, 65, 139, 52, 39, 254, 2, 86, 0, 204}))
 	log.Println(knothash.PartB("46,41,212,83,1,255,157,65,139,52,39,254,2,86,0,204"))
+
+	s, err = ioutil.ReadFile("./hex/puzzle_input.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println(hex.PartA(string(s)))
 }
