@@ -7,6 +7,7 @@ import (
 	"github.com/emman27/aoc2017/circus"
 	"github.com/emman27/aoc2017/corruptionChecksum"
 	"github.com/emman27/aoc2017/inverseCaptcha"
+	"github.com/emman27/aoc2017/knothash"
 	"github.com/emman27/aoc2017/memoryReallocation"
 	"github.com/emman27/aoc2017/passphrase"
 	"github.com/emman27/aoc2017/registers"
@@ -56,4 +57,5 @@ func main() {
 	}
 	log.Println(stream.PartA(string(s)))
 	log.Println(stream.PartB(string(s)))
+	log.Println(knothash.PartA([]int{46, 41, 212, 83, 1, 255, 157, 65, 139, 52, 39, 254, 2, 86, 0, 204}))
 }
