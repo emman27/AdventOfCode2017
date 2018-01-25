@@ -13,6 +13,7 @@ import (
 	"github.com/emman27/aoc2017/passphrase"
 	"github.com/emman27/aoc2017/pipes"
 	"github.com/emman27/aoc2017/registers"
+	"github.com/emman27/aoc2017/scanners"
 	"github.com/emman27/aoc2017/spiralMemory"
 	"github.com/emman27/aoc2017/stream"
 	"github.com/emman27/aoc2017/trampolines"
@@ -70,4 +71,5 @@ func main() {
 	log.Println(hex.PartB(string(s)))
 	log.Println(pipes.PartA("./pipes/input.txt"))
 	log.Println(pipes.PartB("./pipes/input.txt"))
+	log.Println(scanners.PartA("./scanners/input.txt"))
 }
