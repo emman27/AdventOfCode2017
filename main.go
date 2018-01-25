@@ -72,4 +72,5 @@ func main() {
 	log.Println(pipes.PartA("./pipes/input.txt"))
 	log.Println(pipes.PartB("./pipes/input.txt"))
 	log.Println(scanners.PartA("./scanners/input.txt"))
+	log.Println(scanners.PartB("./scanners/input.txt"))
 }
