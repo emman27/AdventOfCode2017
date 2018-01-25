@@ -71,10 +71,34 @@ func (g *graph) addEdge(src, dest node) {
 // PartA returns the number of nodes connected to the node named 0
 func PartA(filename string) int {
 	g := readInput(filename)
-	return g.countNodes("0")
+	return len(g.nodesConnectedTo("0"))
 }
 
-func (g *graph) countNodes(name string) int {
+// PartB counts the number of groups in total
+func PartB(filename string) int {
+	g := readInput(filename)
+	count := 0
+	for len(g.Nodes) != 0 {
+		toRemove := g.nodesConnectedTo(g.Nodes[0].Name)
+		for _, n := range toRemove {
+			g.removeNode(n)
+		}
+		count++
+	}
+	return count
+}
+
+func (g *graph) removeNode(n node) {
+	nodes := []node{}
+	for _, node := range g.Nodes {
+		if node.Name != n.Name {
+			nodes = append(nodes, node)
+		}
+	}
+	g.Nodes = nodes
+}
+
+func (g *graph) nodesConnectedTo(name string) []node {
 	found := []node{}
 	connected := []node{}
 	for _, n := range g.Nodes {
@@ -101,7 +125,7 @@ func (g *graph) countNodes(name string) int {
 		}
 		connected = unique(connected)
 	}
-	return len(found)
+	return found
 }
 
 func (n node) String() string {

@@ -69,4 +69,5 @@ func main() {
 	log.Println(hex.PartA(string(s)))
 	log.Println(hex.PartB(string(s)))
 	log.Println(pipes.PartA("./pipes/input.txt"))
+	log.Println(pipes.PartB("./pipes/input.txt"))
 }
