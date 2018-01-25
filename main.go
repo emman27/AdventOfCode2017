@@ -11,6 +11,7 @@ import (
 	"github.com/emman27/aoc2017/knothash"
 	"github.com/emman27/aoc2017/memoryReallocation"
 	"github.com/emman27/aoc2017/passphrase"
+	"github.com/emman27/aoc2017/pipes"
 	"github.com/emman27/aoc2017/registers"
 	"github.com/emman27/aoc2017/spiralMemory"
 	"github.com/emman27/aoc2017/stream"
@@ -67,4 +68,5 @@ func main() {
 	}
 	log.Println(hex.PartA(string(s)))
 	log.Println(hex.PartB(string(s)))
+	log.Println(pipes.PartA("./pipes/input.txt"))
 }
