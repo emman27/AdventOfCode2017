@@ -3,3 +3,5 @@ vendor
 # From adding a python reference solution
 .ropeproject
 *.py
+
+.vscode

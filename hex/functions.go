@@ -1,6 +1,7 @@
 package hex
 
 import (
+	"math"
 	"strings"
 )
 
@@ -18,6 +19,11 @@ func PartA(dir string) int {
 		steps++
 	}
 	return steps
+}
+
+// PartB returns the max distance at any point in the path
+func PartB(dir string) int {
+	return parseTravelB(dir)
 }
 
 func travel(pt coord) coord {
@@ -65,4 +71,41 @@ func parseTravel(dir string) coord {
 		}
 	}
 	return pt
+}
+
+func parseTravelB(dir string) int {
+	maxDist := 0
+	pt := coord{}
+	fields := strings.FieldsFunc(dir, func(c rune) bool { return c == ',' })
+	for _, c := range fields {
+		switch c {
+		case "ne":
+			pt.X++
+			pt.Y++
+		case "nw":
+			pt.X--
+			pt.Y++
+		case "se":
+			pt.Y--
+			pt.X++
+		case "sw":
+			pt.Y--
+			pt.X--
+		case "n":
+			pt.Y += 2
+		case "s":
+			pt.Y -= 2
+		}
+		if pt.dist() > maxDist {
+			maxDist = pt.dist()
+		}
+	}
+	return maxDist
+}
+
+func (c coord) dist() int {
+	if math.Abs(float64(c.Y)) > math.Abs(float64(c.X)) {
+		return int(math.Abs(float64(c.X)) + math.Abs(math.Abs(float64(c.Y))-math.Abs(float64(c.X)))/2)
+	}
+	return int(math.Abs(float64(c.X)))
 }

@@ -66,4 +66,5 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Println(hex.PartA(string(s)))
+	log.Println(hex.PartB(string(s)))
 }
