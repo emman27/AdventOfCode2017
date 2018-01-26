@@ -6,6 +6,7 @@ import (
 
 	"github.com/emman27/aoc2017/circus"
 	"github.com/emman27/aoc2017/corruptionChecksum"
+	"github.com/emman27/aoc2017/defrag"
 	"github.com/emman27/aoc2017/hex"
 	"github.com/emman27/aoc2017/inverseCaptcha"
 	"github.com/emman27/aoc2017/knothash"
@@ -73,4 +74,5 @@ func main() {
 	log.Println(pipes.PartB("./pipes/input.txt"))
 	log.Println(scanners.PartA("./scanners/input.txt"))
 	log.Println(scanners.PartB("./scanners/input.txt"))
+	log.Println(defrag.PartA("stpzcrnm"))
 }
