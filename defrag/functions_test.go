@@ -46,3 +46,23 @@ func TestPartA(t *testing.T) {
 		})
 	}
 }
+
+func TestPartB(t *testing.T) {
+	type args struct {
+		input string
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{args: args{input: "flqrgnkx"}, want: 1242},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := PartB(tt.args.input); got != tt.want {
+				t.Errorf("PartB() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

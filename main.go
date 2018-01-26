@@ -75,4 +75,5 @@ func main() {
 	log.Println(scanners.PartA("./scanners/input.txt"))
 	log.Println(scanners.PartB("./scanners/input.txt"))
 	log.Println(defrag.PartA("stpzcrnm"))
+	log.Println(defrag.PartB("stpzcrnm"))
 }
