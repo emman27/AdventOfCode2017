@@ -78,4 +78,5 @@ func main() {
 	log.Println(defrag.PartA("stpzcrnm"))
 	log.Println(defrag.PartB("stpzcrnm"))
 	log.Println(generators.PartA(783, 325))
+	log.Println(generators.PartB(783, 325))
 }

@@ -1,6 +1,8 @@
 package generators
 
-import "testing"
+import (
+	"testing"
+)
 
 func Test_next(t *testing.T) {
 	type args struct {
@@ -44,22 +46,22 @@ func TestPartA(t *testing.T) {
 		})
 	}
 }
-
-func Test_toBinary(t *testing.T) {
+func TestPartB(t *testing.T) {
 	type args struct {
-		i int64
+		a int64
+		b int64
 	}
 	tests := []struct {
 		name string
 		args args
-		want string
+		want int
 	}{
-	// TODO: Add test cases.
+		{args: args{a: 65, b: 8921}, want: 309},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := toBinary(tt.args.i); got != tt.want {
-				t.Errorf("toBinary() = %v, want %v", got, tt.want)
+			if got := PartB(tt.args.a, tt.args.b); got != tt.want {
+				t.Errorf("PartB() = %v, want %v", got, tt.want)
 			}
 		})
 	}
