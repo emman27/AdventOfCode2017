@@ -13,6 +13,7 @@ import (
 	"github.com/emman27/aoc2017/knothash"
 	"github.com/emman27/aoc2017/memoryReallocation"
 	"github.com/emman27/aoc2017/passphrase"
+	"github.com/emman27/aoc2017/permutation"
 	"github.com/emman27/aoc2017/pipes"
 	"github.com/emman27/aoc2017/registers"
 	"github.com/emman27/aoc2017/scanners"
@@ -79,4 +80,5 @@ func main() {
 	log.Println(defrag.PartB("stpzcrnm"))
 	log.Println(generators.PartA(783, 325))
 	log.Println(generators.PartB(783, 325))
+	log.Println(permutation.PartA("./permutation/input.txt"))
 }
