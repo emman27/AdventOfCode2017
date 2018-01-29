@@ -77,5 +77,10 @@ func main() {
 	log.Println(scanners.PartB("./scanners/input.txt"))
 	log.Println(defrag.PartA("stpzcrnm"))
 	log.Println(defrag.PartB("stpzcrnm"))
+<<<<<<< HEAD
 	log.Println(generators.PartA(783, 235))
+=======
+	log.Println(generators.PartA(783, 325))
+	log.Println(generators.PartB(783, 325))
+>>>>>>> cb20cbfde367fc4ca4e83315cfc8d44afec1fd71
 }
