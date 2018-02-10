@@ -80,5 +80,6 @@ func main() {
 	log.Println(defrag.PartB("stpzcrnm"))
 	log.Println(generators.PartA(783, 325))
 	log.Println(generators.PartB(783, 325))
-	log.Println(permutation.PartA("./permutation/input.txt"))
+	log.Println(permutation.PartA("./permutation/input.txt", "abcdefghijklmnop"))
+	log.Println(permutation.PartB("./permutation/input.txt"))
 }

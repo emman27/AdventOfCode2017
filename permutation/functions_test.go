@@ -1,6 +1,8 @@
 package permutation
 
-import "testing"
+import (
+	"testing"
+)
 
 func Test_spin(t *testing.T) {
 	type args struct {
@@ -85,4 +87,13 @@ func Test_readFile(t *testing.T) {
 			}
 		})
 	}
+}
+
+func Test_effectivePartA(t *testing.T) {
+	got := effectivePartA("abcdefghijklmnop")
+	want := PartA("./input.txt", "abcdefghijklmnop")
+	if want != got {
+		t.Errorf("effectivePartA() = %v, want %v", got, want)
+	}
+
 }
