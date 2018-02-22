@@ -84,4 +84,5 @@ func main() {
 	log.Println(permutation.PartA("./permutation/input.txt", "abcdefghijklmnop"))
 	log.Println(permutation.PartB("./permutation/input.txt"))
 	log.Println(spinlock.PartA(316))
+	log.Println(spinlock.PartB(316))
 }

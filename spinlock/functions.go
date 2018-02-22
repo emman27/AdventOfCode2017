@@ -20,3 +20,28 @@ func performSpin(buffer []int, currPos, steps, val int) ([]int, int) {
 	currPos++
 	return buffer, currPos
 }
+
+func optimizedSpin(nextToZero, currPos, steps, val, size, zeroPos int) (int, int, int, int) {
+	currPos = (currPos + steps) % size
+	size++
+	if currPos == zeroPos {
+		nextToZero = val
+	}
+	if currPos == zeroPos-1 || (zeroPos == 0 && currPos == -1) {
+		zeroPos++
+	}
+	currPos++
+	return nextToZero, currPos, size, zeroPos
+}
+
+// PartB finds the value after 0 after 50 million iterations...
+func PartB(steps int) int {
+	currPos := 0
+	nextToZero := 0
+	size := 1
+	zeroPos := 0
+	for i := 1; i <= 50000000; i++ {
+		nextToZero, currPos, size, zeroPos = optimizedSpin(nextToZero, currPos, steps, i, size, zeroPos)
+	}
+	return nextToZero
+}
