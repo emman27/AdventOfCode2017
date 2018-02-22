@@ -7,6 +7,7 @@ import (
 	"github.com/emman27/aoc2017/circus"
 	"github.com/emman27/aoc2017/corruptionChecksum"
 	"github.com/emman27/aoc2017/defrag"
+	"github.com/emman27/aoc2017/duet"
 	"github.com/emman27/aoc2017/generators"
 	"github.com/emman27/aoc2017/hex"
 	"github.com/emman27/aoc2017/inverseCaptcha"
@@ -85,4 +86,5 @@ func main() {
 	log.Println(permutation.PartB("./permutation/input.txt"))
 	log.Println(spinlock.PartA(316))
 	log.Println(spinlock.PartB(316))
+	log.Println(duet.PartA("./duet/puzzle_input.txt"))
 }
