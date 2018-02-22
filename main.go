@@ -17,6 +17,7 @@ import (
 	"github.com/emman27/aoc2017/pipes"
 	"github.com/emman27/aoc2017/registers"
 	"github.com/emman27/aoc2017/scanners"
+	"github.com/emman27/aoc2017/spinlock"
 	"github.com/emman27/aoc2017/spiralMemory"
 	"github.com/emman27/aoc2017/stream"
 	"github.com/emman27/aoc2017/trampolines"
@@ -82,4 +83,5 @@ func main() {
 	log.Println(generators.PartB(783, 325))
 	log.Println(permutation.PartA("./permutation/input.txt", "abcdefghijklmnop"))
 	log.Println(permutation.PartB("./permutation/input.txt"))
+	log.Println(spinlock.PartA(316))
 }
