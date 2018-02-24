@@ -20,3 +20,23 @@ func TestPartA(t *testing.T) {
 		})
 	}
 }
+
+func TestPartB(t *testing.T) {
+	type args struct {
+		filename string
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{args: args{filename: "sample_input_b.txt"}, want: 3},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := PartB(tt.args.filename); got != tt.want {
+				t.Errorf("PartB() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
