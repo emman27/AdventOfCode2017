@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"errors"
 	"os"
+	"sync"
 	"time"
 )
 
@@ -20,36 +21,46 @@ func ReadFile(filename string) []string {
 	return lines
 }
 
-// LinkedList defintes a LinkedList
-type LinkedList interface{}
-
 // Queue implements an asynchronous queue structure
 type Queue struct {
-	LinkedList
 	Items []interface{}
+	mux   sync.Mutex
 }
 
 // Pop removes the first item from the queue if available
 func (q *Queue) Pop(timeout time.Duration) (interface{}, error) {
-	ch := make(chan interface{})
+	ch := make(chan interface{}, 1)
+	quit := make(chan bool, 1)
 	go func() {
-		for true {
-			if len(q.Items) != 0 {
-				popped := q.Items[0]
-				q.Items = q.Items[1:]
-				ch <- popped
+		for {
+			select {
+			case <-quit:
+				return
+			default:
+				q.mux.Lock()
+				if len(q.Items) != 0 {
+					popped := q.Items[0]
+					q.Items = q.Items[1:]
+					ch <- popped
+					q.mux.Unlock()
+					return
+				}
+				q.mux.Unlock()
 			}
 		}
 	}()
 	select {
 	case res := <-ch:
 		return res, nil
-	case <-time.After(timeout * time.Second):
+	case <-time.After(timeout):
+		quit <- true
 		return nil, errors.New("couldn't pop Queue")
 	}
 }
 
 // Push adds an item into a Queue
 func (q *Queue) Push(item interface{}) {
+	q.mux.Lock()
+	defer q.mux.Unlock()
 	q.Items = append(q.Items, item)
 }

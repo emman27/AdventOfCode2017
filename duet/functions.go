@@ -90,11 +90,11 @@ func readInput(filename string) []command {
 type program struct {
 	ID        int
 	Registers map[byte]int
-	Input     utils.Queue
-	Output    utils.Queue
+	Input     *utils.Queue
+	Output    *utils.Queue
 }
 
-func newProgram(ID int, input, output utils.Queue) *program {
+func newProgram(ID int, input, output *utils.Queue) *program {
 	return &program{
 		ID:        ID,
 		Registers: map[byte]int{'p': ID},
@@ -107,9 +107,11 @@ func (p *program) execute(filename string) int {
 	count := 0
 	commands := readInput(filename)
 	idx := 0
+	logrus.Infof("Program %d is starting up", p.ID)
 	for idx >= 0 && idx <= len(commands) {
 		cmd := commands[idx]
-		logrus.Infof("Program %d is running %s %v %s", p.ID, cmd.Command, string([]byte{cmd.Register}), cmd.Value)
+		// logrus.Infof("Program %d is running %s %v %s", p.ID, cmd.Command, string([]byte{cmd.Register}), cmd.Value)
+		// logrus.Infof("Program %d Input Queue: %v, Output Queue: %v", p.ID, p.Input, p.Output)
 		switch cmd.Command {
 		case "snd":
 			val, err := strconv.Atoi(string(cmd.Register))
@@ -117,11 +119,12 @@ func (p *program) execute(filename string) int {
 				val = p.Registers[cmd.Register]
 			}
 			count++
+			// logrus.Infof("Program %d Input Queue: %v, Output Queue: %v", p.ID, p.Input, p.Output)
 			p.Output.Push(val)
 		case "add":
 			val, err := strconv.Atoi(cmd.Value)
 			if err != nil {
-				panic(err)
+				val = p.Registers[cmd.Value[0]]
 			}
 			p.Registers[cmd.Register] += val
 		case "set":
@@ -143,16 +146,16 @@ func (p *program) execute(filename string) int {
 			}
 			p.Registers[cmd.Register] %= val
 		case "rcv":
-			newVal, err := p.Input.Pop(time.Duration(1))
+			newVal, err := p.Input.Pop(1 * time.Second)
 			if err != nil {
 				return count
 			}
-			p.Registers[cmd.Value[0]] = newVal.(int)
+			p.Registers[cmd.Register] = newVal.(int)
 		case "jgz":
 			if p.Registers[cmd.Register] > 0 {
 				val, err := strconv.Atoi(cmd.Value)
 				if err != nil {
-					panic(err)
+					val = p.Registers[cmd.Value[0]]
 				}
 				idx += val
 			} else {
@@ -168,8 +171,8 @@ func (p *program) execute(filename string) int {
 
 // PartB counts the number of times program 1 sends a value
 func PartB(filename string) int {
-	out0 := utils.Queue{}
-	out1 := utils.Queue{}
+	out0 := &utils.Queue{Items: []interface{}{}}
+	out1 := &utils.Queue{Items: []interface{}{}}
 	result := make(chan int)
 	program0 := newProgram(0, out1, out0)
 	program1 := newProgram(1, out0, out1)

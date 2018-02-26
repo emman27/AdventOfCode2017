@@ -87,4 +87,5 @@ func main() {
 	log.Println(spinlock.PartA(316))
 	log.Println(spinlock.PartB(316))
 	log.Println(duet.PartA("./duet/puzzle_input.txt"))
+	log.Println(duet.PartB("./duet/puzzle_input.txt"))
 }
