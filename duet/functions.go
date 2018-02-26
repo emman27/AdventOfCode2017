@@ -88,16 +88,16 @@ func readInput(filename string) []command {
 }
 
 type program struct {
-	ID        int
-	Registers map[byte]int
+	ID        int64
+	Registers map[byte]int64
 	Input     *utils.Queue
 	Output    *utils.Queue
 }
 
-func newProgram(ID int, input, output *utils.Queue) *program {
+func newProgram(ID int64, input, output *utils.Queue) *program {
 	return &program{
 		ID:        ID,
-		Registers: map[byte]int{'p': ID},
+		Registers: map[byte]int64{'p': ID},
 		Input:     input,
 		Output:    output,
 	}
@@ -106,65 +106,75 @@ func newProgram(ID int, input, output *utils.Queue) *program {
 func (p *program) execute(filename string) int {
 	count := 0
 	commands := readInput(filename)
-	idx := 0
+	idx := int64(0)
 	logrus.Infof("Program %d is starting up", p.ID)
-	for idx >= 0 && idx <= len(commands) {
+	for idx >= 0 && idx <= int64(len(commands)) {
 		cmd := commands[idx]
 		// logrus.Infof("Program %d is running %s %v %s", p.ID, cmd.Command, string([]byte{cmd.Register}), cmd.Value)
 		// logrus.Infof("Program %d Input Queue: %v, Output Queue: %v", p.ID, p.Input, p.Output)
 		switch cmd.Command {
 		case "snd":
 			val, err := strconv.Atoi(string(cmd.Register))
+			iVal := int64(val)
 			if err != nil {
-				val = p.Registers[cmd.Register]
+				iVal = p.Registers[cmd.Register]
 			}
 			count++
 			// logrus.Infof("Program %d Input Queue: %v, Output Queue: %v", p.ID, p.Input, p.Output)
-			p.Output.Push(val)
+			p.Output.Push(iVal)
 		case "add":
 			val, err := strconv.Atoi(cmd.Value)
+			iVal := int64(val)
 			if err != nil {
-				val = p.Registers[cmd.Value[0]]
+				iVal = p.Registers[cmd.Value[0]]
 			}
-			p.Registers[cmd.Register] += val
+			p.Registers[cmd.Register] += iVal
 		case "set":
 			val, err := strconv.Atoi(cmd.Value)
+			iVal := int64(val)
 			if err != nil {
-				val = p.Registers[cmd.Value[0]]
+				iVal = p.Registers[cmd.Value[0]]
 			}
-			p.Registers[cmd.Register] = val
+			p.Registers[cmd.Register] = iVal
 		case "mul":
 			val, err := strconv.Atoi(cmd.Value)
+			iVal := int64(val)
 			if err != nil {
-				val = p.Registers[cmd.Value[0]]
+				iVal = p.Registers[cmd.Value[0]]
 			}
-			p.Registers[cmd.Register] *= val
+			p.Registers[cmd.Register] *= iVal
 		case "mod":
 			val, err := strconv.Atoi(cmd.Value)
+			iVal := int64(val)
 			if err != nil {
-				val = p.Registers[cmd.Value[0]]
+				iVal = p.Registers[cmd.Value[0]]
 			}
-			p.Registers[cmd.Register] %= val
+			p.Registers[cmd.Register] %= iVal
 		case "rcv":
 			newVal, err := p.Input.Pop(1 * time.Second)
 			if err != nil {
 				return count
 			}
-			p.Registers[cmd.Register] = newVal.(int)
+			p.Registers[cmd.Register] = newVal.(int64)
 		case "jgz":
-			if p.Registers[cmd.Register] > 0 {
-				val, err := strconv.Atoi(cmd.Value)
-				if err != nil {
-					val = p.Registers[cmd.Value[0]]
-				}
-				idx += val
+			val, err := strconv.Atoi(string([]byte{cmd.Register}))
+			var value int64
+			if err != nil {
+				value = p.Registers[cmd.Register]
 			} else {
-				idx++
+				value = int64(val)
+			}
+			if value > 0 {
+				val, err := strconv.Atoi(cmd.Value)
+				iVal := int64(val)
+				if err != nil {
+					iVal = p.Registers[cmd.Value[0]]
+				}
+				idx += iVal
+				continue
 			}
 		}
-		if cmd.Command != "jgz" {
-			idx++
-		}
+		idx++
 	}
 	return count
 }
