@@ -3,7 +3,9 @@ package utils
 import (
 	"bufio"
 	"errors"
+	"math"
 	"os"
+	"strings"
 	"sync"
 	"time"
 )
@@ -71,4 +73,14 @@ func (q *Queue) Push(item interface{}) {
 	q.mux.Lock()
 	defer q.mux.Unlock()
 	q.Items = append(q.Items, item)
+}
+
+// AbsInt gives the absolute value of an integer
+func AbsInt(i int) int {
+	return int(math.Abs(float64(i)))
+}
+
+// SplitByComma returns an array of strings split by commas
+func SplitByComma(s string) []string {
+	return strings.FieldsFunc(s, func(r rune) bool { return r == ',' })
 }

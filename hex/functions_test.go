@@ -2,8 +2,6 @@ package hex
 
 import (
 	"testing"
-
-	"github.com/sirupsen/logrus"
 )
 
 func TestPartA(t *testing.T) {
@@ -56,9 +54,8 @@ func TestPartB(t *testing.T) {
 		{args: args{dir: "se,nw"}, want: 1},
 		{args: args{dir: "sw,ne"}, want: 1},
 	}
-	for i, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			logrus.Infof("Starting test #%d", i)
 			if got := PartB(tt.args.dir); got != tt.want {
 				t.Errorf("PartB() = %v, want %v", got, tt.want)
 			}
