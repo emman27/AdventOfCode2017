@@ -21,6 +21,14 @@ func ReadFile(filename string) []string {
 	return lines
 }
 
+// BoolToInt converts a boolean to an integer for easy hacks
+func BoolToInt(b bool) int {
+	if b {
+		return 1
+	}
+	return 0
+}
+
 // Queue implements an asynchronous queue structure
 type Queue struct {
 	Items []interface{}

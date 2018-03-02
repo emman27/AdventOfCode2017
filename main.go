@@ -22,6 +22,7 @@ import (
 	"github.com/emman27/aoc2017/spiralMemory"
 	"github.com/emman27/aoc2017/stream"
 	"github.com/emman27/aoc2017/trampolines"
+	"github.com/emman27/aoc2017/tubes"
 )
 
 func main() {
@@ -88,4 +89,6 @@ func main() {
 	log.Println(spinlock.PartB(316))
 	log.Println(duet.PartA("./duet/puzzle_input.txt"))
 	log.Println(duet.PartB("./duet/puzzle_input.txt"))
+	log.Println(tubes.PartA("./tubes/puzzle_input.txt"))
+	log.Println(tubes.PartB("./tubes/puzzle_input.txt"))
 }
