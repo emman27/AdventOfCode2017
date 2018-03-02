@@ -42,7 +42,6 @@ func PartB(filename string) int {
 		}
 		delay++
 	}
-	return delay
 }
 
 func positionAtTime(t, rang int) int {
