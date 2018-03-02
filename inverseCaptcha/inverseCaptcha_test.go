@@ -31,7 +31,7 @@ func TestInverseCaptchaVersion2(t *testing.T) {
 		{Input: "12131415", Output: 4},
 	}
 	for _, c := range cases {
-		actual := InverseCaptchaVersion2(c.Input)
+		actual := Version2(c.Input)
 		if actual != c.Output {
 			t.Fatalf("Test failed, Actual: %d, Expected %d", actual, c.Output)
 		}

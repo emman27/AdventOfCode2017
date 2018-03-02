@@ -9,7 +9,7 @@ type testCase struct {
 
 func TestCalcuateMaxDiff(t *testing.T) {
 	cases := []testCase{
-		{Input: [][]int{[]int{5, 1, 9, 5}, []int{7, 5, 3}, []int{2, 4, 6, 8}}, Expected: 18},
+		{Input: [][]int{{5, 1, 9, 5}, {7, 5, 3}, {2, 4, 6, 8}}, Expected: 18},
 	}
 	for idx, c := range cases {
 		if res := Calculate(c.Input, MaxDiff); res != c.Expected {

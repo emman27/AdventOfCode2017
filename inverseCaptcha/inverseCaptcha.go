@@ -20,12 +20,12 @@ func InverseCaptcha(s string) int {
 			total += val
 		}
 	}
-	log.Printf("Took %f seconds", time.Now().Sub(start).Seconds())
+	log.Printf("Took %f seconds", time.Since(start).Seconds())
 	return total
 }
 
-// InverseCaptchaVersion2 also considers the halfway round character
-func InverseCaptchaVersion2(s string) int {
+// Version2 also considers the halfway round character
+func Version2(s string) int {
 	total := 0
 	newString := s + s
 	half := len(s) / 2

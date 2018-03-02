@@ -36,7 +36,7 @@ func checkCaught(cameras map[int]int, startTime int) bool {
 func PartB(filename string) int {
 	cameras := readData(filename)
 	delay := 0
-	for true {
+	for {
 		if !checkCaught(cameras, delay) {
 			return delay
 		}

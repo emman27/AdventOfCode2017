@@ -10,6 +10,7 @@ import (
 	"time"
 )
 
+// ReadFile reads a file and returns a string for every line of the file in an array
 func ReadFile(filename string) []string {
 	file, err := os.Open(filename)
 	if err != nil {

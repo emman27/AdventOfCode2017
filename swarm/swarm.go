@@ -41,7 +41,7 @@ func (p *Particle) Tick() *Particle {
 // parseCommand turns meaningless text into a particle
 func parseCommand(s string, id int) Particle {
 	p := Particle{ID: id}
-	r, err := regexp.Compile("<\\-?[0-9]+,\\-?[0-9]+,\\-?[0-9]+>")
+	r, err := regexp.Compile(`<\-?[0-9]+,\-?[0-9]+,\-?[0-9]+>`)
 	if err != nil {
 		panic(err)
 	}

@@ -43,7 +43,7 @@ func Test_packet_move(t *testing.T) {
 	}{
 		{
 			fields: fields{X: 7, Y: 8, Direction: RIGHT, Trail: []byte{}},
-			args:   args{d: diagram{Points: map[int]map[int]byte{7: map[int]byte{7: '-', 8: '+'}, 6: map[int]byte{8: '|'}}}},
+			args:   args{d: diagram{Points: map[int]map[int]byte{7: {7: '-', 8: '+'}, 6: {8: '|'}}}},
 			want:   packet{X: 6, Y: 8, Direction: UP, Trail: []byte{}, Moves: 1},
 		},
 	}

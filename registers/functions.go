@@ -72,10 +72,10 @@ func trigger(r *registry, target, action string, val int) {
 	}
 }
 
-func (reg *registry) getLargest() float64 {
-	r := *reg
+func (r *registry) getLargest() float64 {
+	reg := *r
 	max := math.Inf(-1)
-	for _, value := range r {
+	for _, value := range reg {
 		max = math.Max(max, float64(value))
 	}
 	return max

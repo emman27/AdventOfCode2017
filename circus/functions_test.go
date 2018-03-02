@@ -30,9 +30,9 @@ func TestPartB(t *testing.T) {
 func TestExpectedWeight(t *testing.T) {
 	level1 := &Program{}
 	level2 := []*Program{
-		&Program{Weight: 2},
-		&Program{Weight: 1},
-		&Program{Weight: 2},
+		{Weight: 2},
+		{Weight: 1},
+		{Weight: 2},
 	}
 	for _, p := range level2 {
 		p.AddParent(level1)
@@ -46,14 +46,14 @@ func TestExpectedWeight(t *testing.T) {
 	l1 := &Program{}
 	unbalanced := &Program{}
 	l2 := []*Program{
-		&Program{Weight: 10},
+		{Weight: 10},
 		unbalanced,
-		&Program{Weight: 10},
+		{Weight: 10},
 	}
 	l3 := []*Program{
-		&Program{Weight: 3},
-		&Program{Weight: 3},
-		&Program{Weight: 3},
+		{Weight: 3},
+		{Weight: 3},
+		{Weight: 3},
 	}
 	for _, p := range l2 {
 		p.AddParent(l1)

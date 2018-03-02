@@ -1,9 +1,5 @@
 package generators
 
-import (
-	"fmt"
-)
-
 type generator int64
 
 var factorA generator = 16807
@@ -55,6 +51,6 @@ func PartB(a, b int64) int {
 	return count
 }
 
-func toBinary(i int64) string {
-	return fmt.Sprintf("%.32b", i)
-}
+// func toBinary(i int64) string {
+// 	return fmt.Sprintf("%.32b", i)
+// }

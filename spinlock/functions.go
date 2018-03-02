@@ -14,7 +14,7 @@ func performSpin(buffer []int, currPos, steps, val int) ([]int, int) {
 	currPos = (currPos + steps) % len(buffer)
 	frontSlice := buffer[0 : currPos+1]
 	backSlice := make([]int, len(buffer)-currPos-1)
-	copy(backSlice, buffer[currPos+1:len(buffer)])
+	copy(backSlice, buffer[currPos+1:])
 	frontSlice = append(frontSlice, val)
 	buffer = append(frontSlice, backSlice...)
 	currPos++

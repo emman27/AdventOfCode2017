@@ -1,7 +1,7 @@
 package trampolines
 
 // TestData is the actual case used for AOC
-var TestData []int = []int{
+var TestData = []int{
 	0,
 	0,
 	2,

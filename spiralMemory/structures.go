@@ -23,6 +23,7 @@ func (s *Storage) Get(x, y int) int {
 	return s.Data[x][y]
 }
 
+// Calculate gives the sum of surrounding cells
 func (s *Storage) Calculate(x, y int) int {
 	return s.Get(x-1, y) + s.Get(x+1, y) + s.Get(x, y-1) + s.Get(x, y+1) + s.Get(x-1, y-1) + s.Get(x+1, y+1) + s.Get(x-1, y+1) + s.Get(x+1, y-1)
 }
