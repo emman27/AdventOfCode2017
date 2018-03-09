@@ -93,4 +93,5 @@ func main() {
 	log.Println(tubes.PartA("./tubes/puzzle_input.txt"))
 	log.Println(tubes.PartB("./tubes/puzzle_input.txt"))
 	log.Println(swarm.PartA("./swarm/puzzle_input.txt"))
+	log.Println(swarm.PartB("./swarm/puzzle_input.txt"))
 }

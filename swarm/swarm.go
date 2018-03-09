@@ -2,8 +2,11 @@
 package swarm
 
 import (
+	"errors"
+	"math"
 	"regexp"
 	"strconv"
+	"strings"
 
 	"github.com/emman27/aoc2017/utils"
 )
@@ -23,25 +26,10 @@ type Particle struct {
 	Acceleration Geometry
 }
 
-// Tick adjusts the velocity and position of a particle
-func (p *Particle) Tick() *Particle {
-	p.Velocity = Geometry{
-		X: p.Velocity.X + p.Acceleration.X,
-		Y: p.Velocity.Y + p.Acceleration.Y,
-		Z: p.Velocity.Z + p.Acceleration.Z,
-	}
-	p.Position = Geometry{
-		X: p.Position.X + p.Velocity.X,
-		Y: p.Position.Y + p.Velocity.Y,
-		Z: p.Position.Z + p.Velocity.Z,
-	}
-	return p
-}
-
 // parseCommand turns meaningless text into a particle
 func parseCommand(s string, id int) Particle {
 	p := Particle{ID: id}
-	r, err := regexp.Compile(`<\-?[0-9]+,\-?[0-9]+,\-?[0-9]+>`)
+	r, err := regexp.Compile(`<(\-|\ )?[0-9]+,(\-|\ )?[0-9]+,(\-|\ )?[0-9]+>`)
 	if err != nil {
 		panic(err)
 	}
@@ -54,15 +42,15 @@ func parseCommand(s string, id int) Particle {
 
 func parseGeometry(s string) Geometry {
 	values := utils.SplitByComma(s[1 : len(s)-1])
-	x, err := strconv.Atoi(values[0])
+	x, err := strconv.Atoi(strings.Trim(values[0], " "))
 	if err != nil {
 		panic(err)
 	}
-	y, err := strconv.Atoi(values[1])
+	y, err := strconv.Atoi(strings.Trim(values[1], " "))
 	if err != nil {
 		panic(err)
 	}
-	z, err := strconv.Atoi(values[2])
+	z, err := strconv.Atoi(strings.Trim(values[2], " "))
 	if err != nil {
 		panic(err)
 	}
@@ -89,4 +77,32 @@ func PartA(filename string) int {
 		}
 	}
 	return id
+}
+
+// PartB finds the number of uncollided particles
+func PartB(filename string) int {
+	lines := utils.ReadFile(filename)
+	particles := []Particle{}
+	for idx, l := range lines {
+		particles = append(particles, parseCommand(l, idx))
+	}
+	return len(particles)
+}
+
+func collisionPoint(p1, p2 Particle) (bool, int) {
+	xc := float64(p1.Position.X - p2.Position.X)
+	xb := float64(p1.Velocity.X - p2.Velocity.X)
+	xa := float64(p1.Acceleration.X - p2.Acceleration.X)
+
+	return false, 0
+}
+
+func solveQuadraticOnlyPositiveIntegerRoots(a, b, c float64) (float64, error) {
+	if math.Pow(b, 2)-4*a*c < 0 {
+		return 0, errors.New("no root found")
+	}
+	rootLower := (-b - math.Sqrt(math.Pow(b, 2)-4*a*c)) / (2 * a)
+	rootHigher := (-b + math.Sqrt(math.Pow(b, 2)-4*a*c)) / (2 * a)
+	higher := math.Max(rootLower, rootHigher)
+	return higher, nil
 }
